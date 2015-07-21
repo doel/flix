@@ -1,13 +1,17 @@
+
+<h1><%= pluralize(@movies.count, "Movies")%> </h1>
 <ul>
 <% @movies.each do |movie| %>
   <br>
 
     <li>Title <%= movie.name %></li>
     <li>Rating <%= movie.rating %></li>
-    <li>Total Gross <%= movie.total_gross %></li>
+    <li>Total Gross <%=format_total_gross movie %></li>
     <li>Created At <%= movie.created_at %></li>
     <li>Updated At <%= movie.updated_at %></li>
-    
+    <li>Released On <%= movie.release_on.to_s(:release_date) if movie.release_on%> 
+    <%= time_ago_in_words(movie.release_on)  if movie.release_on%> ago
+    <li>Description <%= truncate(movie.description, length: 20, separator: ' ') %></li>    
   <%end%>
   <br/>
 </ul>
